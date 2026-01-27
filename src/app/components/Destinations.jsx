@@ -4,17 +4,20 @@ export default function Destinations() {
   const destinations = [
     {
       name: "Sigiriya",
-      image: "https://images.unsplash.com/photo-1598977123118-4e30ba3c4f5b?w=800&q=80",
+      image:
+        "https://cdn.pixabay.com/photo/2018/10/01/21/05/sigiriya-3716269_1280.jpg",
       desc: "Ancient Rock Fortress",
     },
     {
       name: "Kandy",
-      image: "https://images.unsplash.com/photo-1591696331111-ef9586a5b17a?w=800&q=80",
+      image:
+        "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?q=80&w=1200",
       desc: "Cultural Capital",
     },
     {
       name: "Ella",
-      image: "https://images.unsplash.com/photo-1557129458-8e1a9c5e9d0d?w=800&q=80",
+      image:
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200",
       desc: "Hill Country Beauty",
     },
   ];
@@ -28,7 +31,12 @@ export default function Destinations() {
           {destinations.map((d, i) => (
             <div key={i} className="bg-white rounded-xl overflow-hidden shadow">
               <div className="relative h-48">
-                <Image src={d.image} alt={d.name} fill className="object-cover" />
+                <Image
+                  src={d.image}
+                  alt={d.name}
+                  fill
+                  className="object-cover"
+                />
               </div>
               <div className="p-4 text-center">
                 <h3 className="font-bold">{d.name}</h3>

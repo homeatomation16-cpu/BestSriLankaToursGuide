@@ -1,4 +1,5 @@
 "use client";
+import { FaWhatsapp } from "react-icons/fa";
 
 import { Phone, MessageCircle } from "lucide-react";
 
@@ -13,7 +14,7 @@ export default function FloatingActions() {
         className="fixed bottom-24 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-xl transition flex items-center justify-center"
         aria-label="Chat on WhatsApp"
       >
-        <MessageCircle className="w-6 h-6" />
+        <FaWhatsapp className="w-6 h-6" />
       </a>
 
       {/* Sticky Mobile Call Button */}
