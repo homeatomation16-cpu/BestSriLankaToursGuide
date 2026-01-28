@@ -58,7 +58,7 @@ export default function HeroVideo() {
       </video>
 
       {/* DARK OVERLAY */}
-      <div className="absolute inset-0 bg-black/55" />
+      <div className="inline-block lg:hidden z-0 absolute inset-0 bg-black/55" />
       <p className="font-sinhala text-lg">ශ්‍රී ලංකාවේ අමතක නොවන සංචාර</p>
 
       {/* CONTENT */}
@@ -71,7 +71,7 @@ export default function HeroVideo() {
           🇱🇰 Explore Sri Lanka
         </span>
 
-        <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4">
+        <h1 className="text-2xl lg:text-6xl font-extrabold leading-tight mb-4">
           {videos[currentVideo].title}
         </h1>
 
@@ -80,7 +80,7 @@ export default function HeroVideo() {
         </p>
 
         <div className="flex gap-4">
-          <button className="bg-orange-600 px-8 py-4 rounded-xl font-semibold hover:bg-orange-700 transition">
+          <button className="bg-orange-600 text-[14px] lg:text-2xl w-full px-10 lg:p-4 rounded-lg lg:rounded-xl font-semibold hover:bg-orange-700 transition">
             Book Now
           </button>
           <button className="border-2 border-orange-400 px-8 py-4 rounded-xl hover:bg-orange-600 transition">
