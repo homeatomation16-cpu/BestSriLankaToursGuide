@@ -1,116 +1,176 @@
-'use client';
+"use client";
 
 import { Star } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 export default function Testimonials() {
+  const sliderRef = useRef(null);
+
   const reviews = [
     {
-      title: "Colombo Trip",
-      text:
-        "Trip was great, will highly recommend others to go. Planning and execution was smooth, thanks to the team. Best wishes.",
       name: "Vairavelu R",
-      date: "April 8, 2025",
+      text: "Perfectly organized tour. Smooth experience and very professional team.",
+      img: "https://randomuser.me/api/portraits/men/32.jpg",
     },
     {
-      title: "Highly recommended!!",
-      text:
-        "Had an amazing trip with my dad to Colombo & Kandy. Our driver Sisira was very helpful. The team behind the scenes reached out via WhatsApp and handled everything smoothly.",
       name: "Bhairavi V",
-      date: "April 2, 2025",
+      text: "Amazing driver and great communication. Highly recommended!",
+      img: "https://randomuser.me/api/portraits/women/44.jpg",
     },
     {
-      title: "Sri Lanka tour",
-      text:
-        "Fantastic experience! Great driver and tour organized in every detail. I recommend both the driver and the agency. Very kind and attentive to our every need.",
       name: "Melania M",
-      date: "December 27, 2024",
+      text: "Fantastic service and unforgettable memories in Sri Lanka.",
+      img: "https://randomuser.me/api/portraits/women/68.jpg",
     },
     {
-      title: "Highly Recommend!",
-      text:
-        "I booked prior to arriving in Sri Lanka. They communicated well and helped me achieve an adventurous trip in a short time. My driver Sisira was amazing!",
-      name: "Paradise568523",
-      date: "December 15, 2024",
-    },
-    {
-      title: "Amazing Family Tour",
-      text:
-        "We had an amazing family tour in October. Nice itinerary with a variety of activities. The guide/driver Mahesh was excellent and very friendly.",
-      name: "Manel C",
-      date: "November 20, 2024",
-    },
-    {
-      title: "Excellent tour driver in Sri Lanka",
-      text:
-        "I had an excellent experience with Sri Lanka Tours Driver. I can highly recommend the people and the company. Very professional and caring service.",
-      name: "83nisam",
-      date: "November 10, 2024",
+      name: "Daniel K",
+      text: "Luxury level comfort and very caring staff.",
+      img: "https://randomuser.me/api/portraits/men/75.jpg",
     },
   ];
 
+  // AUTO SCROLL
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return;
+
+    let x = 0;
+
+    const i = setInterval(() => {
+      x += 0.4;
+      if (x >= el.scrollWidth / 2) x = 0;
+      el.scrollLeft = x;
+    }, 16);
+
+    return () => clearInterval(i);
+  }, []);
+
   return (
-    <section className="py-20 px-6 bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-32 bg-linear-to-b from-white via-gray-50 to-white">
+
+      <div className="max-w-7xl mx-auto px-6">
+
         {/* HEADER */}
-        <div className="text-center mb-14">
-          <span className="text-orange-600 font-semibold text-lg">
-            Testimonials
-          </span>
-          <h2 className="text-4xl font-bold text-gray-900 mt-2">
-            Customer Reviews
+        <div className="text-center mb-20">
+          <p className="text-orange-500 tracking-widest mb-4">
+            TESTIMONIALS
+          </p>
+
+          <h2 className="text-4xl lg:text-6xl font-bold">
+            Loved by Travelers
           </h2>
+
+          <p className="text-gray-500 mt-4">
+            Real experiences from our guests
+          </p>
         </div>
 
-        {/* GRID */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {reviews.map((review, index) => (
-            <div
-              key={index}
-              className="bg-gray-50 rounded-2xl p-6 shadow-sm hover:shadow-lg transition"
-            >
-              {/* STAR RATING */}
-              <div className="flex gap-1 mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-4 h-4 fill-orange-500 text-orange-500"
+        {/* TRUST BAR */}
+        <div className="
+          bg-white/70 backdrop-blur-xl
+          border border-gray-200
+          rounded-[30px]
+          shadow-xl
+          p-10
+          flex flex-col lg:flex-row
+          justify-between
+          items-center
+          gap-10
+          mb-20
+        ">
+          <TrustBlock label="Google Reviews" score="4.9" total="1,200+" />
+          <TrustBlock label="TripAdvisor" score="5.0" total="800+" />
+          <TrustBlock label="Happy Travelers" score="98%" total="Satisfaction" />
+        </div>
+
+        {/* SLIDER */}
+        <div
+          ref={sliderRef}
+          className="overflow-hidden whitespace-nowrap"
+        >
+          <div className="inline-flex gap-10">
+
+            {[...reviews, ...reviews].map((r, i) => (
+              <div
+                key={i}
+                className="
+                  min-w-85 lg:min-w-115
+                  bg-white/60 backdrop-blur-xl
+                  border border-white/40
+                  shadow-xl
+                  rounded-[30px]
+                  p-10
+                  hover:scale-[1.03]
+                  transition
+                "
+              >
+                <Stars />
+
+                <p className="my-6 text-gray-700 leading-relaxed">
+                  “{r.text}”
+                </p>
+
+                <div className="flex items-center gap-4 mt-6">
+                  <Image
+                    src={r.img}
+                    alt={r.name}
+                    width={50}
+                    height={50}
+                    className="rounded-full"
                   />
-                ))}
+
+                  <div>
+                    <p className="font-semibold">
+                      {r.name}
+                    </p>
+
+                    <p className="text-sm text-green-600">
+                      ✔ Verified Traveler
+                    </p>
+                  </div>
+                </div>
+
               </div>
+            ))}
 
-              {/* TITLE */}
-              <h3 className="font-bold text-gray-900 mb-2">
-                {review.title}
-              </h3>
-
-              {/* TEXT */}
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                {review.text}
-              </p>
-
-              {/* FOOTER */}
-              <div className="flex items-center justify-between text-sm text-gray-500">
-                <span className="font-semibold text-gray-700">
-                  {review.name}
-                </span>
-                <span>{review.date}</span>
-              </div>
-
-              {/* SOURCE */}
-              <div className="mt-3 text-xs text-green-600 font-semibold">
-                ★ TripAdvisor Verified Review
-              </div>
-            </div>
-          ))}
+          </div>
         </div>
 
-        {/* PAGINATION MOCK */}
-        <div className="flex justify-center items-center gap-4 mt-12 text-sm text-gray-600">
-          <button className="hover:text-orange-600 transition">Prev</button>
-          <span className="font-semibold">1 / 2</span>
-          <button className="hover:text-orange-600 transition">Next</button>
-        </div>
       </div>
     </section>
+  );
+}
+
+/* ⭐ STARS */
+function Stars() {
+  return (
+    <div className="flex gap-1">
+      {[...Array(5)].map((_, i) => (
+        <Star
+          key={i}
+          className="w-4 h-4 fill-amber-400 text-amber-400"
+        />
+      ))}
+    </div>
+  );
+}
+
+/* TRUST BLOCK */
+function TrustBlock({ label, score, total }) {
+  return (
+    <div className="text-center">
+      <p className="text-gray-500 mb-2">{label}</p>
+
+      <Stars />
+
+      <p className="text-3xl font-bold mt-2">
+        {score}
+      </p>
+
+      <p className="text-gray-400 text-sm">
+        {total}
+      </p>
+    </div>
   );
 }

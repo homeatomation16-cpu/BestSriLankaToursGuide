@@ -12,68 +12,92 @@ export default function WhyUs() {
     {
       title: "Best Travel Agent",
       description:
-        "One of the best leading tour operator in Sri Lanka tourism industry",
+        "A leading luxury tour operator delivering premium travel experiences across Sri Lanka.",
       icon: Star,
     },
     {
       title: "Beautiful Places",
       description:
-        "A smiling sun all year round, golden beaches, ancient exciting cities, safaris, lovely people in a tropical paradise.",
+        "Golden beaches, ancient cities, wildlife safaris and tropical paradise scenery all year round.",
       icon: MapPin,
     },
     {
       title: "Tailor Made Tours",
       description:
-        "We provide the best custom-made & specialized Sri Lanka tours to our clients.",
+        "Fully customized private tours crafted around your comfort and preferences.",
       icon: Sliders,
     },
     {
-      title: "Transportation",
+      title: "Private Transportation",
       description:
-        "We arrange reliable transportation and airport transfers for single/couple travelers, families or groups.",
+        "Modern, comfortable vehicles with professional multilingual chauffeurs.",
       icon: Car,
     },
     {
       title: "Best Price Guarantee",
       description:
-        "Customers will get a service proportionate to the price they have paid.",
+        "Premium service quality that matches every dollar you invest.",
       icon: BadgeCheck,
     },
     {
-      title: "Fast Booking",
+      title: "Fast VIP Booking",
       description:
-        "You can reach us via Email or WhatsApp 24/7.",
+        "Priority response via WhatsApp & Email — 24/7 concierge support.",
       icon: Zap,
     },
   ];
 
   return (
-    <section className="py-20 px-6 bg-linear-to-br from-gray-50 to-orange-50">
+    <section className="py-28 lg:py-36 px-6 bg-linear-to-b from-white to-orange-50">
       <div className="max-w-7xl mx-auto">
+
         {/* HEADER */}
-        <div className="text-center mb-14">
-          <span className="text-orange-600 font-semibold text-lg">
-            Why Us
-          </span>
-          <h2 className="text-4xl font-bold text-gray-900 mt-2">
-            We Make All The Process Easy
+        <div className="text-center mb-24">
+          <p className="text-orange-600 text-xl mb-4 tracking-wide">
+            Why Choose Us
+          </p>
+
+          <h2 className="text-4xl lg:text-6xl font-bold text-gray-900">
+            We Make Travel Effortless
           </h2>
         </div>
 
         {/* GRID */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {features.map((item, index) => {
             const Icon = item.icon;
+
             return (
               <div
                 key={index}
-                className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition transform hover:-translate-y-2"
+                className="
+                  group
+                  rounded-[28px]
+                  p-10
+                  bg-white/70
+                  backdrop-blur-xl
+                  border border-white/40
+                  shadow-lg
+                  transition
+                  hover:-translate-y-3
+                  hover:shadow-[0_25px_60px_rgba(0,0,0,0.12)]
+                "
               >
-                <div className="w-14 h-14 mb-6 rounded-xl bg-orange-100 flex items-center justify-center">
-                  <Icon className="w-7 h-7 text-orange-600" />
+                {/* ICON */}
+                <div className="
+                  w-16 h-16 mb-8
+                  rounded-2xl
+                  bg-linear-to-br
+                  from-orange-500 to-amber-400
+                  flex items-center justify-center
+                  shadow-lg
+                  group-hover:scale-110
+                  transition
+                ">
+                  <Icon className="w-8 h-8 text-white" />
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
                   {item.title}
                 </h3>
 
@@ -84,8 +108,8 @@ export default function WhyUs() {
             );
           })}
         </div>
+
       </div>
     </section>
   );
 }
-

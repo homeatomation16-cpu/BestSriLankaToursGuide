@@ -1,104 +1,149 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useEffect, useRef, useState } from "react";
+
+const SLIDE_DURATION = 8000;
+
+const SLIDES = [
+  {
+    src: "https://pixabay.com/videos/download/video-286459_tiny.mp4",
+    title: "Mirissa Beach",
+    subtitle: "Golden sunsets & whale watching paradise",
+  },
+  {
+    src: "https://pixabay.com/videos/download/video-191283_tiny.mp4",
+    title: "Sigiriya Rock Fortress",
+    subtitle: "Ancient wonder of Sri Lanka",
+  },
+  {
+    src: "https://pixabay.com/videos/download/video-191284_tiny.mp4",
+    title: "Ella Scenic Train",
+    subtitle: "World’s most beautiful train ride",
+  },
+];
 
 export default function HeroVideo() {
-  const [currentVideo, setCurrentVideo] = useState(0);
-  const [fade, setFade] = useState(true);
+  const [current, setCurrent] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
 
-  const videos = [
-    {
-      src: "https://pixabay.com/videos/download/video-286459_tiny.mp4",
-      title: "Mirissa Beach",
-      subtitle: "Golden sunsets & whale watching paradise",
-    },
-    {
-      src: "https://pixabay.com/videos/download/video-191283_tiny.mp4",
-      title: "Sigiriya Rock Fortress",
-      subtitle: "Ancient wonder & UNESCO World Heritage Site",
-    },
-    {
-      src: "https://pixabay.com/videos/download/video-191284_tiny.mp4",
-      title: "Ella Scenic Train Ride",
-      subtitle: "One of the most beautiful train journeys in the world",
-    },
-    {
-      src: "https://pixabay.com/videos/download/video-242272_tiny.mp4",
-      title: "Yala National Park",
-      subtitle: "Wildlife safaris & majestic elephants",
-    },
-    {
-      src: "https://pixabay.com/videos/download/video-132140_tiny.mp4",
-      title: "Hill Country",
-      subtitle: "Tea plantations & misty mountain views",
-    },
-  ];
+  const timeoutRef = useRef(null);
+  const rafRef = useRef(null);
 
-  const handleVideoEnd = () => {
-    setFade(false); // fade out
-    setTimeout(() => {
-      setCurrentVideo((prev) => (prev + 1) % videos.length);
-      setFade(true); // fade in
-    }, 600);
-  };
+  const slide = SLIDES[current];
+
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    let start = performance.now();
+
+    const animate = (t) => {
+      const p = Math.min((t - start) / SLIDE_DURATION, 1);
+      setProgress(p);
+      if (p < 1) rafRef.current = requestAnimationFrame(animate);
+    };
+
+    rafRef.current = requestAnimationFrame(animate);
+
+    timeoutRef.current = setTimeout(() => {
+      setCurrent((c) => (c + 1) % SLIDES.length);
+      setProgress(0);
+    }, SLIDE_DURATION);
+
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      clearTimeout(timeoutRef.current);
+    };
+  }, [current]);
 
   return (
-    <section className="relative min-h-screen flex items-center px-6 overflow-hidden">
-      {/* VIDEO */}
+    <section style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
+
       <video
-        key={currentVideo}
+        key={current}
         autoPlay
         muted
         playsInline
-        onEnded={handleVideoEnd}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-          fade ? "opacity-100" : "opacity-0"
-        }`}
+        preload="metadata"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          transform: `scale(1.1) translateY(${scrollY * 0.15}px)`,
+        }}
       >
-        <source src={videos[currentVideo].src} type="video/mp4" />
+        <source src={slide.src} type="video/mp4" />
       </video>
 
-      {/* DARK OVERLAY */}
-      <div className="inline-block lg:hidden z-0 absolute inset-0 bg-black/55" />
-      <p className="font-sinhala text-lg">ශ්‍රී ලංකාවේ අමතක නොවන සංචාර</p>
+      <div style={{
+        position: "absolute",
+        inset: 0,
+        background: "linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.7))",
+      }} />
 
-      {/* CONTENT */}
-      <div
-        className={`relative z-10 max-w-7xl mx-auto text-black lg:text-white transition-opacity duration-700 ${
-          fade ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <span className="inline-block mb-4 px-4 py-1 rounded-full bg-orange-600/20 text-orange-300 font-semibold text-sm">
-          🇱🇰 Explore Sri Lanka
-        </span>
+      <div style={{
+        position: "absolute",
+        inset: 0,
+        background: "radial-gradient(circle, transparent 45%, rgba(0,0,0,0.65))",
+      }} />
 
-        <h1 className="text-2xl lg:text-6xl font-extrabold leading-tight mb-4">
-          {videos[currentVideo].title}
+      <div style={{
+        position: "relative",
+        zIndex: 10,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: "clamp(24px,6vw,80px)",
+        color: "#fff",
+        maxWidth: "900px",
+      }}>
+
+        <h1 style={{
+          fontFamily: "Apple SD Gothic Neo, sans-serif",
+          fontSize: "clamp(3.5rem,8vw,5.5rem)",
+          fontWeight: 700,
+          lineHeight: 1.05,
+        }}>
+          {slide.title}
         </h1>
 
-        <p className="text-xl md:text-2xl text-black lg:text-white/80 max-w-xl mb-8">
-          {videos[currentVideo].subtitle}
+        <p style={{ marginTop: 16, fontSize: "1.2rem", opacity: 0.85 }}>
+          {slide.subtitle}
         </p>
 
-        <div className="flex gap-4">
-          <button className="bg-orange-600 text-[14px] lg:text-2xl w-full px-10 lg:p-4 rounded-lg lg:rounded-xl font-semibold hover:bg-orange-700 transition">
+        <div style={{ marginTop: 30, display: "flex", gap: 16 }}>
+          <button style={{
+            padding: "14px 26px",
+            borderRadius: 999,
+            background: "linear-gradient(135deg,#ea580c,#f59e0b)",
+            color: "#fff",
+            border: "none",
+          }}>
             Book Now
-          </button>
-          <button className="border-2 border-orange-400 px-8 py-4 rounded-xl hover:bg-orange-600 transition">
-            Tailor Made Tours
           </button>
         </div>
 
-        {/* SLIDER INDICATOR */}
-        <div className="mt-8 flex gap-2">
-          {videos.map((_, i) => (
-            <span
-              key={i}
-              className={`h-2 w-8 rounded-full transition ${
-                i === currentVideo ? "bg-orange-500" : "bg-white/30"
-              }`}
-            />
-          ))}
+        <div style={{
+          marginTop: 40,
+          width: 120,
+          height: 4,
+          background: "rgba(255,255,255,0.25)",
+          borderRadius: 999,
+        }}>
+          <div style={{
+            width: `${progress * 100}%`,
+            height: "100%",
+            background: "linear-gradient(90deg,#ea580c,#fbbf24)",
+          }} />
         </div>
+
       </div>
     </section>
   );
