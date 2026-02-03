@@ -9,6 +9,11 @@ const nextConfig = {
   turbopack: {
     root: __dirname,
   },
+
+  experimental: {
+    allowedDevOrigins: ["http://localhost:3000", "http://10.73.167.217:3000"],
+  },
+
   images: {
     remotePatterns: [
       {
@@ -19,6 +24,24 @@ const nextConfig = {
         protocol: "https",
         hostname: "cdn.pixabay.com",
       },
+      {
+        protocol: "https",
+        hostname: "woinupcbvkriufpyhwtm.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+      {
+      protocol: "https",
+      hostname: "randomuser.me", // ✅ ADD THIS
+    },
+    {
+      protocol: "https",
+      hostname: "upload.wikimedia.org",
+    },
+    {
+      protocol: "https",
+      hostname: "taasl.lk",
+    },
+  
     ],
   },
 };

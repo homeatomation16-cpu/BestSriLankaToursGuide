@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function DestinationsPage() {
   const destinations = [
@@ -9,8 +12,6 @@ export default function DestinationsPage() {
       image:
         "https://images.unsplash.com/photo-1598977123118-4e30ba3c4f5b?w=800&q=80",
       desc: "Ancient Rock Fortress",
-      details:
-        "Sigiriya is an ancient rock fortress and UNESCO World Heritage Site, famous for its frescoes and breathtaking views.",
     },
     {
       name: "Kandy",
@@ -18,8 +19,6 @@ export default function DestinationsPage() {
       image:
         "https://images.unsplash.com/photo-1591696331111-ef9586a5b17a?w=800&q=80",
       desc: "Cultural Capital",
-      details:
-        "Kandy is home to the Temple of the Tooth Relic and surrounded by lush hills and tea plantations.",
     },
     {
       name: "Ella",
@@ -27,51 +26,84 @@ export default function DestinationsPage() {
       image:
         "https://images.unsplash.com/photo-1557129458-8e1a9c5e9d0d?w=800&q=80",
       desc: "Hill Country Beauty",
-      details:
-        "Ella offers scenic views, waterfalls, hiking trails, and the famous Nine Arches Bridge.",
     },
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <section id="destinations" className="py-20 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="text-orange-600 font-semibold text-lg">
-              Choose Your
-            </span>
-            <h2 className="text-4xl font-bold text-gray-900">Destinations</h2>
-          </div>
+    <section className="py-24 px-6 bg-linear-to-b from-white to-gray-100">
+      <div className="max-w-7xl mx-auto">
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {destinations.map((dest) => (
+        {/* HEADER */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <span className="text-orange-500 font-semibold text-lg">
+            Choose Your
+          </span>
+
+          <h2 className="text-5xl font-bold tracking-tight mt-2">
+            Destinations
+          </h2>
+
+          <p className="text-gray-500 mt-4 max-w-xl mx-auto">
+            Discover Sri Lanka’s most breathtaking places with
+            comfort and style.
+          </p>
+        </motion.div>
+
+        {/* GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+          {destinations.map((dest, i) => (
+            <motion.div
+              key={dest.slug}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15, duration: 0.8 }}
+            >
               <Link
-                key={dest.slug}
                 href={`/destinations/${dest.slug}`}
-                className="group cursor-pointer"
+                className="group block"
               >
-                <div className="bg-linear-to-br from-orange-50 to-yellow-50 rounded-2xl p-4 text-center hover:shadow-xl transition transform hover:-translate-y-2">
+                <div className="relative h-95 rounded-3xl overflow-hidden shadow-xl">
+
                   {/* IMAGE */}
-                  <div className="w-full h-32 mb-4 overflow-hidden rounded-xl relative">
-                    <Image
-                      src={dest.image}
-                      alt={dest.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition duration-500"
-                    />
-                  </div>
+                  <Image
+                    src={dest.image}
+                    alt={dest.name}
+                    fill
+                    className="object-cover group-hover:scale-110 transition duration-700"
+                    unoptimized
+                  />
+
+                  {/* OVERLAY */}
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
 
                   {/* TEXT */}
-                  <h3 className="font-bold text-gray-900 mb-1">
-                    {dest.name}
-                  </h3>
-                  <p className="text-sm text-gray-600">{dest.desc}</p>
+                  <div className="absolute bottom-0 p-8 text-white">
+                    <h3 className="text-3xl font-bold">
+                      {dest.name}
+                    </h3>
+
+                    <p className="text-white/80 mt-2">
+                      {dest.desc}
+                    </p>
+
+                    <span className="inline-block mt-4 text-sm bg-white/20 backdrop-blur px-4 py-1 rounded-full">
+                      Explore →
+                    </span>
+                  </div>
+
                 </div>
               </Link>
-            ))}
-          </div>
+            </motion.div>
+          ))}
         </div>
-      </section>
-    </div>
+
+      </div>
+    </section>
   );
 }

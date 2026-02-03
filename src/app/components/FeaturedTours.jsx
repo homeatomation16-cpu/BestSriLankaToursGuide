@@ -1,121 +1,152 @@
-import Image from "next/image";
-import { Calendar, Users } from "lucide-react";
+"use client";
 
-export default function FeaturedTours() {
-  const packages = [
+import Image from "next/image";
+import { Users } from "lucide-react";
+
+export default function OneDayTours() {
+  const oneDayTours = [
     {
-      name: "05 Days Down South Tour",
-      duration: "5 Days",
-      pax: "2",
-      price: "$283.50",
+      name: "Galle One Day Escape",
+      capacity: "6",
+      price: "$80",
       image:
-        "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80",
+        "https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=1400&q=80",
     },
     {
-      name: "08 Days Down South Tour",
-      duration: "8 Days",
-      pax: "1",
-      price: "$335.00",
+      name: "Kandy Cultural Experience",
+      capacity: "6",
+      price: "$130",
       image:
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80",
+        "https://images.unsplash.com/photo-1591696331111-ef9586a5b17a?w=1400&q=80",
     },
     {
-      name: "10 Days Down South Tour",
-      duration: "10 Days",
-      pax: "1",
-      price: "$400.00",
+      name: "Sigiriya Heritage Tour",
+      capacity: "6",
+      price: "$150",
       image:
-        "https://images.unsplash.com/photo-1598977123118-4e30ba3c4f5b?w=800&q=80",
+        "https://images.unsplash.com/photo-1598977123118-4e30ba3c4f5b?w=1400&q=80",
     },
   ];
 
   return (
-    <section id="tours" className="py-20 px-6 bg-white">
+    <section className="py-24 lg:py-32 px-6 bg-linear-to-b from-white to-orange-50">
       <div className="max-w-7xl mx-auto">
+
         {/* HEADER */}
-        <div className="text-center mb-12">
-          <span className="text-orange-600 font-semibold text-lg">
-            Recommended
-          </span>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Featured Tour Packages
-          </h2>
-          <p className="text-lg text-gray-600 mb-4">
-            (November to April)
+        <div className="text-center mb-20">
+          <p className="text-orange-600 text-xl mb-4 tracking-wide">
+            Private Day Experiences
           </p>
 
-          <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            The best time to visit Sri Lanka’s South Coast is between November
-            and mid-May, offering perfect weather and calm seas for swimmable
-            beaches. These months provide ideal conditions for relaxation and
-            exploration.
-            <br /><br />
-            However, Sri Lanka is a year-round destination, with its diverse
-            climate ensuring amazing experiences no matter when you visit!
-          </p>
+          <h2 className="text-4xl lg:text-6xl font-bold text-gray-900">
+            One Day Luxury Tours
+          </h2>
         </div>
 
-        {/* CARDS */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {packages.map((pkg, i) => (
+        {/* GRID */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {oneDayTours.map((tour, index) => (
             <div
-              key={i}
-              className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden hover:border-orange-600 hover:shadow-xl transition"
+              key={index}
+              className="
+                group relative
+                rounded-[28px]
+                overflow-hidden
+                bg-white/65
+                backdrop-blur-2xl
+                border border-white/40
+                shadow-xl
+                transition
+                hover:-translate-y-3
+                hover:shadow-[0_30px_70px_rgba(0,0,0,0.18)]
+              "
             >
               {/* IMAGE */}
-              <div className="relative h-56 overflow-hidden">
+              <div className="relative h-72 overflow-hidden">
                 <Image
-                  src={pkg.image}
-                  alt={pkg.name}
+                  src={tour.image}
+                  alt={tour.name}
                   fill
-                  className="object-cover hover:scale-110 transition duration-500"
+                  className="
+                    object-cover
+                    transition duration-1000
+                    group-hover:scale-110
+                  "
                 />
+
+                {/* OVERLAY */}
+                <div className="
+                  absolute inset-0
+                  bg-linear-to-t
+                  from-black/60 via-black/10 to-transparent
+                " />
+
+                {/* PRICE BADGE */}
+                <div className="
+                  absolute bottom-6 right-6
+                  bg-white/85 backdrop-blur
+                  px-5 py-2
+                  rounded-full
+                  font-semibold
+                  text-black
+                  shadow-md
+                ">
+                  From {tour.price}
+                </div>
               </div>
 
               {/* CONTENT */}
-              <div className="p-6">
+              <div className="p-8">
+
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  {pkg.name}
+                  {tour.name}
                 </h3>
 
-                <div className="space-y-2 mb-6 text-gray-700">
-                  <div className="flex items-center gap-3">
-                    <Calendar className="w-5 h-5 text-orange-600" />
-                    <span>{pkg.duration}</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Users className="w-5 h-5 text-orange-600" />
-                    <span>{pkg.pax} Person(s)</span>
-                  </div>
+                <div className="flex items-center gap-3 text-gray-700 mb-8">
+                  <Users className="w-5 h-5 text-orange-500" />
+                  {tour.capacity} Guests
                 </div>
 
-                <div className="mb-6">
-                  <div className="text-sm text-gray-600">From USD</div>
-                  <div className="text-3xl font-bold text-orange-600">
-                    {pkg.price}
-                  </div>
-                </div>
-
-                <button className="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition">
-                  Explore
+                <button
+                  className="
+                    w-full py-4
+                    rounded-full
+                    font-semibold
+                    text-white
+                    bg-linear-to-r
+                    from-orange-600 to-amber-500
+                    transition
+                    hover:scale-[1.05]
+                    hover:shadow-xl
+                  "
+                >
+                  Explore Day Tour
                 </button>
+
               </div>
             </div>
           ))}
         </div>
 
         {/* CTA */}
-        <div className="text-center mt-14">
-          <p className="text-lg text-gray-700 mb-6">
-            Need to customize the plan for your next trip in Sri Lanka?
-          </p>
+        <div className="text-center mt-24">
           <a
             href="#contact"
-            className="inline-block bg-orange-600 text-white px-10 py-4 rounded-lg text-lg font-semibold hover:bg-orange-700 transition"
+            className="
+              inline-block
+              px-14 py-5
+              rounded-full
+              text-lg font-semibold
+              bg-black text-white
+              transition
+              hover:scale-110
+              hover:shadow-2xl
+            "
           >
-            Contact Us Now
+            Customize My Day Tour
           </a>
         </div>
+
       </div>
     </section>
   );

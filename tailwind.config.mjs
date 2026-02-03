@@ -1,12 +1,19 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+const config = {
   content: [
-    "./src/app/**/*.{js,jsx}",
-    "./src/components/**/*.{js,jsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        body: ["var(--font-poppins)"],
+        heading: ["var(--font-playfair)"],
+        sinhala: ["var(--font-sinhala)"],
+      },
+    },
   },
   plugins: [],
 };
 
+export default config;

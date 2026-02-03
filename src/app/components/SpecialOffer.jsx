@@ -2,52 +2,139 @@ import { Check, Star } from "lucide-react";
 
 export default function SpecialOffer() {
   const included = [
-    "Private A/C Vehicle",
-    "English Speaking Driver",
-    "Accommodation with Breakfast",
-    "Fuel & Parking",
+    "Private A/C Luxury Vehicle",
+    "Personal English-Speaking Chauffeur",
+    "4★ & 5★ Hotels with Breakfast",
+    "All Fuel, Tolls & Parking",
   ];
 
   const bonuses = [
-    "Free Local SIM",
-    "Free Water Bottles",
-    "Scenic Train Tickets",
+    "Free Tourist SIM Card",
+    "Daily Premium Water Bottles",
+    "Scenic Train Experience",
   ];
 
   return (
-    <section className="py-20 px-6 bg-orange-600 text-white">
-      <div className="max-w-5xl mx-auto bg-white text-gray-900 rounded-3xl p-10 shadow-2xl">
-        <span className="bg-red-600 text-white px-4 py-2 rounded-lg font-bold">
-          🚨 30% OFF
-        </span>
+    <section className="py-28 px-6 bg-linear-to-b from-orange-50 via-white to-orange-50">
 
-        <h2 className="text-4xl font-bold mt-6 mb-6">
-          10 Days Tour in Sri Lanka
-        </h2>
+      <div className="max-w-6xl mx-auto">
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <div>
-            {included.map((i, idx) => (
-              <div key={idx} className="flex gap-2 mb-2">
-                <Check className="text-green-600" /> {i}
-              </div>
-            ))}
+        <div className="
+          bg-white/70 backdrop-blur-xl
+          border border-white/40
+          shadow-[0_20px_60px_rgba(0,0,0,0.1)]
+          rounded-[36px]
+          p-12 lg:p-16
+          relative
+          overflow-hidden
+        ">
+
+          {/* LUXURY GLOW */}
+          <div className="
+            absolute -top-20 -right-20
+            w-72 h-72
+            bg-orange-300/20
+            blur-[120px]
+            rounded-full
+          "/>
+
+          {/* BADGE */}
+          <div className="mb-8">
+            <span className="
+              bg-linear-to-r from-red-500 to-orange-500
+              text-white
+              px-6 py-3
+              rounded-full
+              font-semibold
+              shadow-lg
+            ">
+              🔥 Limited Offer — 30% OFF
+            </span>
           </div>
 
-          <div>
-            {bonuses.map((b, idx) => (
-              <div key={idx} className="flex gap-2 mb-2">
-                <Star className="text-orange-500" /> {b}
-              </div>
-            ))}
+          {/* TITLE */}
+          <h2 className="
+            text-4xl lg:text-6xl
+            font-bold
+            mb-6
+          ">
+            10-Day Luxury Sri Lanka Tour
+          </h2>
 
-            <div className="mt-6">
-              <p className="text-sm">Total Price</p>
-              <p className="text-4xl font-bold text-orange-600">$700</p>
-              <p className="text-sm">for 2 persons</p>
+          <p className="text-gray-600 mb-12 max-w-2xl">
+            A handcrafted journey through Sri Lanka’s most beautiful
+            destinations with private chauffeur, premium hotels and
+            unforgettable experiences.
+          </p>
+
+          {/* GRID */}
+          <div className="grid lg:grid-cols-2 gap-16">
+
+            {/* INCLUDED */}
+            <div>
+              <h3 className="font-semibold text-xl mb-6">
+                Included
+              </h3>
+
+              {included.map((i, idx) => (
+                <div key={idx} className="flex gap-3 mb-4 items-center">
+                  <Check className="text-green-500" />
+                  <span className="text-gray-700">{i}</span>
+                </div>
+              ))}
             </div>
+
+            {/* BONUSES + PRICE */}
+            <div>
+
+              <h3 className="font-semibold text-xl mb-6">
+                Complimentary Bonuses
+              </h3>
+
+              {bonuses.map((b, idx) => (
+                <div key={idx} className="flex gap-3 mb-4 items-center">
+                  <Star className="text-amber-500" />
+                  <span className="text-gray-700">{b}</span>
+                </div>
+              ))}
+
+              {/* PRICE */}
+              <div className="mt-10">
+                <p className="text-gray-500">Exclusive Price</p>
+
+                <p className="
+                  text-5xl lg:text-6xl
+                  font-bold
+                  text-orange-600
+                ">
+                  $700
+                </p>
+
+                <p className="text-gray-500 mb-6">
+                  For 2 Travelers
+                </p>
+
+                {/* CTA */}
+                <button className="
+                  bg-linear-to-r from-orange-500 to-amber-500
+                  text-white
+                  px-10 py-4
+                  rounded-full
+                  font-semibold
+                  shadow-xl
+                  hover:scale-105
+                  transition
+                ">
+                  Reserve This Offer
+                </button>
+              </div>
+
+            </div>
+
           </div>
+
         </div>
+
       </div>
     </section>
   );
