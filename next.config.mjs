@@ -11,7 +11,7 @@ const nextConfig = {
   },
 
   experimental: {
-    allowedDevOrigins: ["http://localhost:3000", "http://10.73.167.217:3000"],
+    allowedDevOrigins: ["http://localhost:3000"],
   },
 
   images: {
