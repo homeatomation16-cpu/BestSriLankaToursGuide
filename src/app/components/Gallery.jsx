@@ -36,7 +36,7 @@ export default function Gallery() {
   }, []);
 
   return (
-    <section className="py-28 bg-linear-to-brom-white to-gray-50">
+    <section className="py-28 bg-linear-to-b from-white to-gray-50">
 
       <div className="max-w-7xl mx-auto px-6">
 
@@ -69,7 +69,7 @@ export default function Gallery() {
                 target="_blank"
                 className="
                   relative
-                  min-w-70in-w-[420px]
+                  min-w-70 lg:min-w-105
                   h-90
                   rounded-[28px]
                   overflow-hidden
