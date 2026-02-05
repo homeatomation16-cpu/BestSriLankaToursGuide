@@ -6,6 +6,8 @@ import PageTransition from "./components/PageTransition";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
+;
+
 // Google Fonts
 const poppins = Poppins({
   subsets: ["latin"],
@@ -52,6 +54,7 @@ export default function RootLayout({ children }) {
 
         {/* HEADER */}
         <header className="bg-white sticky top-0 z-50 shadow-md">
+         
           {/* @ts-expect-error Async Server Component */}
           <Navbar />
         </header>
