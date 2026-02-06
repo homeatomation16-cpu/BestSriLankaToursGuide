@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Loader from "./Loader";
 
 const SLIDE_DURATION = 8000;
 
@@ -26,18 +27,21 @@ export default function HeroVideo() {
   const [current, setCurrent] = useState(0);
   const [progress, setProgress] = useState(0);
   const [scrollY, setScrollY] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const timeoutRef = useRef(null);
   const rafRef = useRef(null);
 
   const slide = SLIDES[current];
 
+  // Parallax scroll
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Slide timer
   useEffect(() => {
     let start = performance.now();
 
@@ -52,6 +56,7 @@ export default function HeroVideo() {
     timeoutRef.current = setTimeout(() => {
       setCurrent((c) => (c + 1) % SLIDES.length);
       setProgress(0);
+      setLoading(true); // show loader for next video
     }, SLIDE_DURATION);
 
     return () => {
@@ -63,12 +68,14 @@ export default function HeroVideo() {
   return (
     <section style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
 
+      {/* VIDEO */}
       <video
         key={current}
         autoPlay
         muted
         playsInline
-        preload="metadata"
+        preload="auto"
+        onLoadedData={() => setLoading(false)}
         style={{
           position: "absolute",
           inset: 0,
@@ -81,6 +88,10 @@ export default function HeroVideo() {
         <source src={slide.src} type="video/mp4" />
       </video>
 
+      {/* ✅ REAL LOADER */}
+      {loading && <Loader />}
+
+      {/* Dark overlays */}
       <div style={{
         position: "absolute",
         inset: 0,
@@ -93,6 +104,7 @@ export default function HeroVideo() {
         background: "radial-gradient(circle, transparent 45%, rgba(0,0,0,0.65))",
       }} />
 
+      {/* CONTENT */}
       <div style={{
         position: "relative",
         zIndex: 10,
@@ -104,9 +116,7 @@ export default function HeroVideo() {
         color: "#fff",
         maxWidth: "900px",
       }}>
-
         <h1 style={{
-          fontFamily: "Apple SD Gothic Neo, sans-serif",
           fontSize: "clamp(3.5rem,8vw,5.5rem)",
           fontWeight: 700,
           lineHeight: 1.05,
@@ -118,18 +128,18 @@ export default function HeroVideo() {
           {slide.subtitle}
         </p>
 
-        <div style={{ marginTop: 30, display: "flex", gap: 16 }}>
-          <button style={{
-            padding: "14px 26px",
-            borderRadius: 999,
-            background: "linear-gradient(135deg,#ea580c,#f59e0b)",
-            color: "#fff",
-            border: "none",
-          }}>
-            Book Now
-          </button>
-        </div>
+        <button style={{
+          marginTop: 24,
+          padding: "14px 26px",
+          borderRadius: 999,
+          background: "linear-gradient(135deg,#ea580c,#f59e0b)",
+          color: "#fff",
+          border: "none",
+        }}>
+          Book Now
+        </button>
 
+        {/* Progress */}
         <div style={{
           marginTop: 40,
           width: 120,
@@ -143,7 +153,6 @@ export default function HeroVideo() {
             background: "linear-gradient(90deg,#ea580c,#fbbf24)",
           }} />
         </div>
-
       </div>
     </section>
   );
